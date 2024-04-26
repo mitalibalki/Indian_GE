@@ -669,7 +669,7 @@ def plot_s_margin(df, simulated_s_margin):
   # making plot for margin distribution
   s_margin = df['S_Margin'].tolist()
 
-  norm_s_margin = s_margin/np.mean(s_margin)
+  norm_s_margin = s_margin/np.nanmean(s_margin)
   max_value = max(norm_s_margin)
 
   bin_values = np.histogram_bin_edges(norm_sim_s_margin, bins= 'scott')
