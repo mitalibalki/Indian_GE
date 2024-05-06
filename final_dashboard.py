@@ -230,7 +230,7 @@ if st.session_state['selected_report'] == reports[1]:
 
 			# adding a section with an interactive anagayama chart
 			st.markdown(f"**Analysing the Distribution of Votes for the Year {st.session_state['selected_year']} for the First Three Candidates**")
-			st.markdown("[enter text]")
+			st.markdown("The Nagayama triangle displays the logical boundaries of the voteshares attainable by the candidates of an election. \n\nThe x-axis represents the voteshare of the winning party. The red dots represent the vote share of the runner-up party in a constituency where the x coordinate is the voteshare of the first party and y coordinate the voteshare of the runner-up. Similarly, the green dots represent the voteshare of the second runner-up relative to the voteshare of the winning party.")
 
 			# make and display graph
 			col5 = st.columns((1,1), gap='medium')
@@ -289,7 +289,7 @@ if st.session_state['selected_report'] == reports[1]:
 				st.plotly_chart(fig1, theme="streamlit", use_container_width=True)
 
 			st.markdown("**Description:**")
-			st.markdown("[add text]")
+			st.markdown("The usual method to analysing the graph involves setting logical boundaries to better understand the data. These boundaries can be set in multiple ways. Here, we consider the maximum voteshares attainable by the first three parties in the election.\n\nA concentration of points close to the top of the triangle (red dots) and close to the x-axis (for the green dots) implies a **competitive election** where the first party won votes in the range of 40% to 55%, while the second party won around 50% of the votes.\n\nA concentration of points close to the 30-30-30 split where the line through the centre of the triangle meets the side opposite of the vertex of its origin signifies a more **fractionalized election** with ENOPs around 3.\n\nIf a large number of points fall betwen 0 and 33% on the x-axis, it might be indicaive of a multiparty system with significant players in the range of > 3.")
 			st.divider()
 
 # if yearly comparisons is selected
