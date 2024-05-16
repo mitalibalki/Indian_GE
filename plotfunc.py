@@ -432,6 +432,33 @@ def yearly_ENOP(data, year, state = "all", constituency = "all"):
 
   return plt
 
+# yearly ENOP
+def yearly_ENOP_alt(data, year, state = "all", constituency = "all"):
+
+  # remove unwanted columns
+  columns_wanted = ['Year','Position','ENOP_Alt']
+  temp_data = data[columns_wanted]
+  temp_data = temp_data.dropna(subset=["ENOP_Alt"])
+  temp_data = temp_data.loc[temp_data["Position"] == 1]
+
+  if year != 'all' and state == "all" and constituency == "all":
+    temp_data = temp_data.loc[temp_data['Year'] == year]
+    ENOP_data = temp_data['ENOP_Alt'].tolist()
+
+  # plot the count
+  bins = len(np.histogram_bin_edges(ENOP_data, bins='auto'))
+  plt.figure(year)
+  plt.hist(ENOP_data, bins = bins, color = c_dict['b'])
+
+  plt.xlim(0,10)
+  plt.ylim(0,140)
+
+  # add titles
+  plt.xlabel("ENOP_Alt")
+  plt.ylabel("Frequency")
+
+  return plt
+
 # yearly nagayama triangle
 def yearly_nagayama(df, year):
   # get year data
@@ -664,10 +691,13 @@ def plot_s_margin(df, simulated_s_margin):
     density_sim_s.append(rho)
   
   # for the actual data
-  df['S_Margin'] = df['Margin']/df['Turnout']
+  df['S_Margin'] = (df['Margin']/df['Turnout'])
 
   # making plot for margin distribution
   s_margin = df['S_Margin'].tolist()
+  print(len(s_margin))
+
+  print(np.mean(s_margin))
 
   norm_s_margin = s_margin/np.nanmean(s_margin)
   max_value = max(norm_s_margin)
