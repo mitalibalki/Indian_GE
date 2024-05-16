@@ -19,13 +19,13 @@ st.set_page_config(
 @st.cache_data 
 def load_data(url):
     df = pd.read_csv(url)
-    if url == 'Cleaned_GE1.csv':
+    if url == 'Cleaned_GE3.csv':
     	df = df.loc[df['ENOC'] != 0]
-    if url == 'Margin_GE.csv':
+    if url == 'Margin_GE1.csv':
     	df = df.loc[df['Turnout'] != 0]
     return df
 
-data = load_data('Cleaned_GE2.csv')
+data = load_data('Cleaned_GE3.csv')
 
 data2 = load_data('Margin_GE1.csv')
 
@@ -90,7 +90,7 @@ with st.sidebar:
 
 	# for year wise comparison
     if st.session_state['selected_report'] == reports[2]:
-    	yearly_comp = ["No. of Candidates", "ENOP", "ENOC", "Fraction of Votes", "Nagayama Triangle", "Party Vote Share"]
+    	yearly_comp = ["No. of Candidates", "ENOP", "ENOP_alt", "ENOC", "Fraction of Votes", "Nagayama Triangle", "Party Vote Share"]
     	st.session_state['selected_comp'] = st.selectbox('Select a way to compare', yearly_comp, index=0)
 # if vote share is selected, select the candidate
     	if st.session_state['selected_comp'] == yearly_comp[5]:
@@ -299,6 +299,8 @@ def func_yearly(graph_name, year):
 		return yearly_n_candidates(data, year)
 	elif graph_name == "ENOP":
 		return yearly_ENOP(data, year)
+	elif graph_name == "ENOP_alt":
+		return yearly_ENOP_alt(data, year)
 	elif graph_name == "ENOC":
 		return yearly_ENOC(data, year)
 	elif graph_name == "Fraction of Votes":
